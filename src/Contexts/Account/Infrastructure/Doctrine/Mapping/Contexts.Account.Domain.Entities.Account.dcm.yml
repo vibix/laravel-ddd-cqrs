@@ -1,0 +1,34 @@
+Contexts\Account\Domain\Entities\Account:
+  type: entity
+  table: users
+  id:
+    accountId:
+      type: AccountId
+      column: id
+  fields:
+    name:
+      type: string
+    password:
+      type: string
+    emailVerifiedAt:
+      column: email_verified_at
+      type: datetime
+      nullable: true
+    createdAt:
+      column: created_at
+      type: datetime
+      nullable: false
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      column: updated_at
+      type: datetime
+      nullable: false
+      gedmo:
+        timestampable:
+          on: update
+  embedded:
+    email:
+      class: Contexts\Account\Domain\ValueObjects\Email
+      columnPrefix: false

@@ -1,0 +1,7 @@
+POST http://{{host}}/api/v1/accounts/verify-email/c777d0fe-b068-474e-80b3-a11aefd00a79
+Accept: application/json
+Content-Type: application/json
+
+{
+    "code": "9675"
+}

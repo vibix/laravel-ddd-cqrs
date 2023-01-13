@@ -1,0 +1,23 @@
+POST http://{{host}}/api/v1/accounts/register
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "john.doe{{$randomInt}}@admin.pl",
+    "password": "Tester!23",
+    "name": "John Doe"
+}
+
+### to LOGIN tests
+
+POST http://{{host}}/api/v1/accounts/register
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "john.doe.client@admin.pl",
+    "password": "Tester!23",
+    "name": "John Doe"
+}
+
+###

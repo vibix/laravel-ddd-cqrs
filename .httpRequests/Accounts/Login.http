@@ -1,0 +1,15 @@
+# @no-cookie-jar
+POST http://{{host}}/api/v1/accounts/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "john.doe.client@admin.pl",
+    "password": "Tester!23"
+}
+
+> {%
+    client.global.set("accessToken", response.body.data.token);
+%}
+
+###

@@ -1,0 +1,19 @@
+App\Services\Authentication\Entities\AuthUser:
+  type: entity
+  table: users
+  id:
+    accountId:
+      type: AuthAccountId
+      column: id
+  fields:
+    name:
+      type: string
+    password:
+      type: string
+    rememberToken:
+      column: remember_token
+      type: string
+  embedded:
+    email:
+      class: App\Services\Authentication\ValueObjects\Email
+      columnPrefix: false

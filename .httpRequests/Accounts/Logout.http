@@ -1,0 +1,8 @@
+POST http://{{host}}/api/v1/accounts/logout
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+
+
+###

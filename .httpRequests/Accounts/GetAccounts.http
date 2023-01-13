@@ -1,0 +1,8 @@
+GET http://{{host}}/api/v1/accounts
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+
+
+###

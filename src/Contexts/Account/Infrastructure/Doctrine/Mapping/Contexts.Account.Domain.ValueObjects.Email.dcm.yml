@@ -1,0 +1,8 @@
+Contexts\Account\Domain\ValueObjects\Email:
+  type: embeddable
+  fields:
+    value:
+      column: email
+      type: string
+      unique: true
+      nullable: false

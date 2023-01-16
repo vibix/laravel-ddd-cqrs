@@ -8,7 +8,7 @@ use Contexts\Account\Domain\ValueObjects\AccountId;
 use Contexts\Account\Domain\ValueObjects\Email;
 use Contexts\Shared\Events\DomainEventInterface;
 
-final class EmailConfirmed implements DomainEventInterface
+final class EmailVerified implements DomainEventInterface
 {
     public function __construct(private readonly AccountId $uuid, private readonly Email $email)
     {

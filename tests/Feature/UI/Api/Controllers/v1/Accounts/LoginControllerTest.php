@@ -6,6 +6,7 @@ namespace Tests\Feature\UI\Api\Controllers\v1\Accounts;
 
 use Contexts\Account\Domain\Entities\Account;
 use Contexts\Account\Domain\ValueObjects\Email;
+use DateTime;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,28 @@ class LoginControllerTest extends TestCase
 {
     use WithFaker;
 
-
     public function test_it_should_login_successful(): void
+    {
+        $email = $this->faker->email;
+        $password = 'Password!23';
+
+        entity(Account::class)->create([
+            'email' => new Email($email),
+            'password' => Hash::make($password),
+            'emailVerifiedAt' => new DateTime(),
+        ]);
+
+        $response = $this->postJson('/api/v1/accounts/login', [
+            'email' => $email,
+            'password' => $password,
+        ]);
+
+        $response->assertSuccessful();
+
+        self::assertArrayHasKey('token', $response->json('data'));
+    }
+
+    public function test_it_should_throw_email_not_verified_error_on_login(): void
     {
         $email = $this->faker->email;
         $password = 'Password!23';
@@ -31,9 +52,7 @@ class LoginControllerTest extends TestCase
             'password' => $password,
         ]);
 
-        $response->assertSuccessful();
-
-        self::assertArrayHasKey('token', $response->json('data'));
+        $response->assertForbidden();
     }
 
     public function test_it_should_throw_account_not_exists_error_on_login(): void
@@ -57,6 +76,7 @@ class LoginControllerTest extends TestCase
         entity(Account::class)->create([
             'email' => new Email($email),
             'password' => $password, // not hashed
+            'emailVerifiedAt' => new DateTime(),
         ]);
 
         $response = $this->postJson('/api/v1/accounts/login', [

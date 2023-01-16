@@ -7,7 +7,7 @@ namespace Contexts\Account\Application\EventSubscribers;
 use Contexts\Account\Application\Exceptions\AccountNotExistsException;
 use Contexts\Account\Application\Notifications\EmailConfirmedNotification;
 use Contexts\Account\Application\Repositories\AccountViewRepository;
-use Contexts\Account\Domain\Events\EmailConfirmed;
+use Contexts\Account\Domain\Events\EmailVerified;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Notification;
 
@@ -20,14 +20,14 @@ final class AccountEventsSubscriber
     public function subscribe(Dispatcher $events): array
     {
         return [
-            EmailConfirmed::class => 'handleAccountEmailConfirmed',
+            EmailVerified::class => 'handleAccountEmailVerified',
         ];
     }
 
     /**
      * @throws AccountNotExistsException
      */
-    public function handleAccountEmailConfirmed(EmailConfirmed $event): void
+    public function handleAccountEmailVerified(EmailVerified $event): void
     {
         $account = $this->accountViewRepository->find($event->getUuid());
 

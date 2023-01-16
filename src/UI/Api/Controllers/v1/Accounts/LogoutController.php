@@ -14,6 +14,7 @@ final class LogoutController extends Controller
     {
         $token = $request->user()->token();
         $token->revoke();
+        $token->delete();
 
         return new LogoutResponse();
     }

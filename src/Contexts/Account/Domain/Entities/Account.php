@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Contexts\Account\Domain\Entities;
 
-use Contexts\Account\Domain\Events\EmailConfirmed;
+use Contexts\Account\Domain\Events\EmailVerified;
 use Contexts\Account\Domain\Events\AccountCreated;
 use Contexts\Account\Domain\Exceptions\EmailAlreadyVerifiedException;
 use Contexts\Account\Domain\ValueObjects\AccountId;
@@ -38,7 +38,7 @@ final class Account extends AggregateRoot
         }
 
         $this->emailVerifiedAt = new DateTime();
-        $this->recordDomainEvent(new EmailConfirmed($this->accountId, $this->email));
+        $this->recordDomainEvent(new EmailVerified($this->accountId, $this->email));
     }
 
     public static function register(string $name, Email $email, string $password): self

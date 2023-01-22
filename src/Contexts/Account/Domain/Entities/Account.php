@@ -41,9 +41,8 @@ final class Account extends AggregateRoot
         $this->recordDomainEvent(new EmailVerified($this->accountId, $this->email));
     }
 
-    public static function register(string $name, Email $email, string $password): self
+    public static function register(AccountId $accountId, string $name, Email $email, string $password): self
     {
-        $accountId = new AccountId(Str::uuid()->toString());
         $account = new self($accountId, $name, $email, Hash::make($password));
 
         $account->recordDomainEvent(new AccountCreated($accountId, $email));

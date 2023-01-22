@@ -7,8 +7,10 @@ namespace UI\Api\Controllers\v1\Accounts;
 use App\Services\CommandBus\CommandBus;
 use App\Services\CommandBus\Middlewares\UseDatabaseTransactions;
 use Contexts\Account\Domain\Commands\CreateAccount;
+use Contexts\Account\Domain\ValueObjects\AccountId;
 use Contexts\Account\Domain\ValueObjects\Email;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 use UI\Api\Requests\Account\RegisterRequest;
 use UI\Api\Responses\Account\RegisterResponse;
 
@@ -22,6 +24,7 @@ final class RegisterController extends Controller
     {
         $this->commandBus->dispatch(
             new CreateAccount(
+                accountId: new AccountId(Str::uuid()->toString()),
                 name: $request->input('name'),
                 email: new Email($request->input('email')),
                 password: $request->input('password')

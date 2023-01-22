@@ -29,7 +29,12 @@ final class CreateAccountHandler
                 throw new NotUniqueEmailException();
             }
 
-            $account = Account::register($command->getName(), $command->getEmail(), $command->getPassword());
+            $account = Account::register(
+                $command->getAccountId(),
+                $command->getName(),
+                $command->getEmail(),
+                $command->getPassword()
+            );
 
             $this->repository->save($account);
 

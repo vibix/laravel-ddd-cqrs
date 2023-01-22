@@ -9,9 +9,11 @@ use Contexts\Account\Application\Exceptions\CreateAccountFailedException;
 use Contexts\Account\Domain\Commands\CreateAccount;
 use Contexts\Account\Domain\Entities\Account;
 use Contexts\Account\Domain\Events\AccountCreated;
+use Contexts\Account\Domain\ValueObjects\AccountId;
 use Contexts\Account\Domain\ValueObjects\Email;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CreateAccountTest extends TestCase
@@ -32,6 +34,7 @@ class CreateAccountTest extends TestCase
         Event::fake();
 
         $command = new CreateAccount(
+            accountId: new AccountId(Str::uuid()->toString()),
             name: $this->faker->firstName,
             email: new Email($this->faker->email),
             password: $this->faker->password,
@@ -52,6 +55,7 @@ class CreateAccountTest extends TestCase
         Event::fake();
 
         $command = new CreateAccount(
+            accountId: new AccountId(Str::uuid()->toString()),
             name: $this->faker->firstName,
             email: new Email($this->faker->email),
             password: $this->faker->password,
